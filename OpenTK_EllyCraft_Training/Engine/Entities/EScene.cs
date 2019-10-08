@@ -12,6 +12,13 @@ namespace EllyCraft
         public delegate void Update();
         public delegate void Render();
 
+        public EScene()
+        {
+
+        }
+
+        public EScene(string name) : base(name) { }
+
         public void CreateInstance(ESceneObject obj)
         {
 

@@ -70,6 +70,26 @@ namespace EllyCraft
             {
                 return "Cannot get resource " + resourceName + " from path " + path;
             }
+
+            public static string OutOfRange(int index)
+            {
+                return "The index you select is out of range";
+            }
+
+            public static string ObjectDoesNotExist<T>()
+            {
+                return "The object does not exist " + typeof(T).Name;
+            }
+
+            public static string ObjectDoesNotExist<T>(string name)
+            {
+                return "The object does not exist " + typeof(T).Name + ", Object name " + name;
+            }
+
+            public static string LoadingFailed(string path)
+            {
+                return "File loading file " + path;
+            }
         }
     }
 }
