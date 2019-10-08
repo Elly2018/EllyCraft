@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{28614208-C69D-44D7-A4B4-C2D80DE790DC}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>OpenTK_EllyCraft_Training</RootNamespace>
+    <AssemblyName>OpenTK_EllyCraft_Training</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Crow, Version=0.7.1.30790, Culture=neutral, PublicKeyToken=13516c29fef4602c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Crow.OpenTK.0.7.2\lib\net45\Crow.dll</HintPath>
+    </Reference>
+    <Reference Include="FileFormatWavefront, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FileFormatWavefront.1.0.3.0\lib\net40\FileFormatWavefront.dll</HintPath>
+    </Reference>
+    <Reference Include="NanoVG.NET, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NanoVG.NET.1.0.5\lib\net45\NanoVG.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.3.1.0\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK.GLControl, Version=3.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\OpenTK.GLControl.3.1.0\lib\net20\OpenTK.GLControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CrowWindow.cs" />
+    <Compile Include="Engine\Base\EObject.cs" />
+    <Compile Include="Engine\Base\ESceneComponentBase.cs" />
+    <Compile Include="Engine\Base\Manager\SceneManagerBase.cs" />
+    <Compile Include="Engine\Entities\Component\CMeshFilter.cs" />
+    <Compile Include="Engine\Entities\Component\CRectTransform.cs" />
+    <Compile Include="Engine\Entities\Component\CText.cs" />
+    <Compile Include="Engine\Entities\Component\CTransform.cs" />
+    <Compile Include="Engine\Entities\Renderer\CMeshRender.cs" />
+    <Compile Include="Engine\Entities\DataStruct\ETexture.cs" />
+    <Compile Include="Engine\Entities\DataStruct\EMesh.cs" />
+    <Compile Include="Engine\Entities\DataStruct\Vertex2D.cs" />
+    <Compile Include="Engine\Entities\DataStruct\Vertex3D.cs" />
+    <Compile Include="Engine\Entities\EScene.cs" />
+    <Compile Include="Engine\Entities\ESceneComponent.cs" />
+    <Compile Include="Engine\Entities\ESceneObject.cs" />
+    <Compile Include="Engine\Game.cs" />
+    <Compile Include="Engine\Entities\Renderer\CTextRender.cs" />
+    <Compile Include="Engine\Interface\Logger.cs" />
+    <Compile Include="Engine\IO\LoadMap.cs" />
+    <Compile Include="Engine\IO\LoadResource.cs" />
+    <Compile Include="Engine\IO\EPath.cs" />
+    <Compile Include="Engine\IO\SaveMap.cs" />
+    <Compile Include="Engine\Manager\MEditorMode.cs" />
+    <Compile Include="Engine\Manager\MLoggerManager.cs" />
+    <Compile Include="Engine\Manager\MSceneManager.cs" />
+    <Compile Include="InterfaceControler.cs" />
+    <Compile Include="OpenGL\Extensions.cs" />
+    <Compile Include="OpenGL\Shader.cs" />
+    <Compile Include="OpenGL\Texture.cs" />
+    <Compile Include="OpenGL\vaoMesh.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="Crow.dll.config" />
+    <None Include="OpenTK.dll.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
