@@ -49,13 +49,12 @@ namespace EllyCraft
             ESceneObject UIParent = editorModeScene.CreateInstance(new ESceneObject("UI"));
             ESceneObject TestText = editorModeScene.CreateInstance(new ESceneObject("Test"), UIParent);
 
-            UIParent.AddComponent<CRectTransform>(new CRectTransform());
-            TestText.AddComponent<CRectTransform>(new CRectTransform());
-            CText targetText = TestText.AddComponent<CText>(new CText());
-            CSpriteRender targetTextRender = TestText.AddComponent<CSpriteRender>(new CSpriteRender());
+            UIParent.AddComponent<CRectTransform>();
+            TestText.AddComponent<CRectTransform>();
+            CText targetText = TestText.AddComponent<CText>();
 
             targetText.text = "Test";
-            targetText.color = new Color(1.0f, 1.0f, 1.0f);
+            targetText.color = new EColor(1.0f, 1.0f, 1.0f);
             MSceneManager.LoadScene(editorModeScene);
         }
 

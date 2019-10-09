@@ -1,9 +1,10 @@
-﻿using NanoVGDotNet;
+﻿using EllyCraft.Base;
+using NanoVGDotNet;
 using NanoVGDotNet.NanoVG;
 
 namespace EllyCraft.GUI
 {
-    class CSpriteRender : ESceneComponent, _2DRenderer
+    class CSpriteRender : RendererBase, _2DRenderer
     {
         public void Render(CRectTransform t)
         {

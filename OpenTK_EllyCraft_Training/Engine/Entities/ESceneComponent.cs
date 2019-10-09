@@ -4,7 +4,6 @@ namespace EllyCraft
 {
     class ESceneComponent : ESceneComponentBase
     {
-
     }
 
     [System.Serializable]

@@ -1,0 +1,6 @@
+﻿namespace EllyCraft
+{
+    class EShader
+    {
+    }
+}

@@ -79,20 +79,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\Attribute\PropertyHelper.cs" />
+    <Compile Include="Engine\Attribute\RequireComponent.cs" />
     <Compile Include="Engine\Base\EObject.cs" />
     <Compile Include="Engine\Base\ESceneComponentBase.cs" />
     <Compile Include="Engine\Base\Manager\SceneManagerBase.cs" />
+    <Compile Include="Engine\Base\RendererBase.cs" />
     <Compile Include="Engine\Entities\Component\CMeshFilter.cs" />
     <Compile Include="Engine\Entities\Component\CRectTransform.cs" />
     <Compile Include="Engine\Entities\Component\CText.cs" />
     <Compile Include="Engine\Entities\Component\CTransform.cs" />
-    <Compile Include="Engine\Entities\DataStruct\Color.cs" />
+    <Compile Include="Engine\Entities\DataStruct\EColor.cs" />
+    <Compile Include="Engine\Entities\DataStruct\EIVertex2D.cs" />
+    <Compile Include="Engine\Entities\DataStruct\EIVector3D.cs" />
+    <Compile Include="Engine\Entities\DataStruct\EMaterial.cs" />
+    <Compile Include="Engine\Entities\DataStruct\ERect.cs" />
+    <Compile Include="Engine\Entities\DataStruct\EShader.cs" />
     <Compile Include="Engine\Entities\Renderer\CSpriteRender.cs" />
     <Compile Include="Engine\Entities\Renderer\CMeshRender.cs" />
     <Compile Include="Engine\Entities\DataStruct\ETexture.cs" />
     <Compile Include="Engine\Entities\DataStruct\EMesh.cs" />
-    <Compile Include="Engine\Entities\DataStruct\Vertex2D.cs" />
-    <Compile Include="Engine\Entities\DataStruct\Vertex3D.cs" />
+    <Compile Include="Engine\Entities\DataStruct\EVertex2D.cs" />
+    <Compile Include="Engine\Entities\DataStruct\EVertex3D.cs" />
     <Compile Include="Engine\Entities\EScene.cs" />
     <Compile Include="Engine\Entities\ESceneComponent.cs" />
     <Compile Include="Engine\Entities\ESceneObject.cs" />

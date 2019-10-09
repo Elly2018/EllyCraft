@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EllyCraft.Base;
 
-namespace OpenTK_EllyCraft_Training.Engine.Entities.Component
+namespace EllyCraft
 {
-    class CMeshRender
+    class CMeshRender : RendererBase, _3DRenderer
     {
+        public void Render(CTransform t)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

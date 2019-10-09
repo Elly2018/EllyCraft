@@ -1,5 +1,7 @@
 ﻿using EllyCraft.Base;
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace EllyCraft
 {
@@ -13,12 +15,54 @@ namespace EllyCraft
         public ESceneObject(string _name) : base(_name) {
         }
 
-        public T AddComponent<T>(T t) where T : ESceneComponent
+        public T AddComponent<T>() where T : ESceneComponent, new()
         {
+            foreach(var i in typeof(T).GetProperties())
+            {
+                var require = i.GetCustomAttributes(typeof(RequireComponent), true);
+                if(require.Length > 0)
+                {
+                    foreach(RequireComponent e in require)
+                    {
+                        if (e.type.IsAssignableFrom(typeof(ESceneComponent)))
+                            AddComponent(e.type);
+                    }
+                }
+            }
+
+            return AddComponentOngameObject<T>();
+        }
+        public ESceneComponent AddComponent(Type component) 
+        {
+            foreach (var i in component.GetType().GetProperties())
+            {
+                var require = i.GetCustomAttributes(typeof(RequireComponent), true);
+                if (require.Length > 0)
+                {
+                    foreach (RequireComponent e in require)
+                    {
+                        if (e.type.IsAssignableFrom(typeof(ESceneComponent)))
+                            AddComponent(e.type);
+                    }
+                }
+            }
+
+            return AddComponentOngameObject(component);
+        }
+
+        private T AddComponentOngameObject<T>() where T : ESceneComponent, new()
+        {
+            T t = new T();
             components.Add(t);
             t.sceneObject = this;
             GetCurrentScene().BindBehavior(this);
             return t;
+        }
+        private ESceneComponent AddComponentOngameObject(Type type)
+        {
+            ConstructorInfo ctor = type.GetConstructor(Type.EmptyTypes);
+            object instance = ctor.Invoke(new object[] { });
+            return instance as ESceneComponent;
         }
 
         public ESceneComponent[] GetComponents()

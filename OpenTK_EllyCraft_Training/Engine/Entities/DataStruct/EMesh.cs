@@ -9,9 +9,9 @@ namespace EllyCraft
 {
     class EMesh : EObject
     {
-        public Vertex2D[] _uv;
-        public Vertex3D[] _vert;
-        public Vertex3D[] _normal;
+        public EVertex2D[] _uv;
+        public EVertex3D[] _vert;
+        public EVertex3D[] _normal;
 
         public enum DefaultMeshType
         {
@@ -56,22 +56,22 @@ namespace EllyCraft
         {
             EMesh e = new EMesh();
 
-            List<Vertex3D> vert = new List<Vertex3D>();
+            List<EVertex3D> vert = new List<EVertex3D>();
             for (int i = 0; i < scene.Model.Vertices.Count; i++)
             {
-                vert.Add(new Vertex3D(scene.Model.Vertices[i].x, scene.Model.Vertices[i].y, scene.Model.Vertices[i].z));
+                vert.Add(new EVertex3D(scene.Model.Vertices[i].x, scene.Model.Vertices[i].y, scene.Model.Vertices[i].z));
             }
 
-            List<Vertex3D> normal = new List<Vertex3D>();
+            List<EVertex3D> normal = new List<EVertex3D>();
             for (int i = 0; i < scene.Model.Normals.Count; i++)
             {
-                vert.Add(new Vertex3D(scene.Model.Normals[i].x, scene.Model.Normals[i].y, scene.Model.Normals[i].z));
+                vert.Add(new EVertex3D(scene.Model.Normals[i].x, scene.Model.Normals[i].y, scene.Model.Normals[i].z));
             }
 
-            List<Vertex2D> uv = new List<Vertex2D>();
+            List<EVertex2D> uv = new List<EVertex2D>();
             for (int i = 0; i < scene.Model.Uvs.Count; i++)
             {
-                vert.Add(new Vertex3D(scene.Model.Uvs[i].u, scene.Model.Uvs[i].v));
+                vert.Add(new EVertex3D(scene.Model.Uvs[i].u, scene.Model.Uvs[i].v));
             }
 
             e._vert = vert.ToArray();

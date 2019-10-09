@@ -29,8 +29,9 @@ namespace EllyCraft
         {
             /* Register system */
             MLoggerManager.AddLogger(new SystemLogger(1));
-
             MLoggerManager.Log("Logger initialized");
+
+            MInputManager.targetWindow = this;
 
             /* Display the window and grpahics api information */
             MLoggerManager.Log("Game initialized");
@@ -72,6 +73,8 @@ namespace EllyCraft
 
             /* Pull logic update event through out every scene */
             MSceneManager.SceneUpdate();
+
+            MLoggerManager.Log(MInputManager.GetWindowMousePos().x + "  " + MInputManager.GetWindowMousePos().y);
 
             base.OnUpdateFrame(e);
         }

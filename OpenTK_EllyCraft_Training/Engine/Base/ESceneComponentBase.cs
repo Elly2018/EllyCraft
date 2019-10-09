@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace EllyCraft.Base
 {
-    abstract class ESceneComponentBase : EObject, EllyBehavior
+    abstract class ESceneComponentBase : EObject, EllyBehavior, IDisposable
     {
         public ESceneObject sceneObject;
 
@@ -16,6 +17,11 @@ namespace EllyCraft.Base
         public void Reset()
         {
 
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

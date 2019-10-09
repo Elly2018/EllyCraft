@@ -7,6 +7,7 @@
 
         public EObject()
         {
+            name = "Empty gameObject";
         }
 
         public EObject(string _name)

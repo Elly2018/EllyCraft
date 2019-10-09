@@ -1,8 +1,9 @@
 ﻿namespace EllyCraft.GUI
 {
+    [RequireComponent(typeof(CSpriteRender))]
     class CText : ESceneComponent
     {
         public string text;
-        public Color color;
+        public EColor color;
     }
 }
