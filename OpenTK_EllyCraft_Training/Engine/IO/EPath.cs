@@ -7,17 +7,23 @@ namespace EllyCraft.IO
     {
         public static string GetApplicationPath()
         {
-            return Directory.GetCurrentDirectory();
+            string path = Directory.GetCurrentDirectory();
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            return path;
         }
 
         public static string GetResourcePath()
         {
-            return Path.Combine(Directory.GetCurrentDirectory(), "Resource");
+            string path = Path.Combine(Directory.GetCurrentDirectory(), "Resource");
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            return path;
         }
 
         public static string GetPersistentPath()
         {
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "EllyCraft");
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "EllyCraft");
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            return path;
         }
     }
 }

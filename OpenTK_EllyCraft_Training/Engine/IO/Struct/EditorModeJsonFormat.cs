@@ -5,5 +5,6 @@
     {
         public bool Enable;
         public bool RunningTimeChange;
+        public bool EnableDevelopModeButton;
     }
 }

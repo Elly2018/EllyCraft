@@ -11,6 +11,7 @@ namespace EllyCraft.IO
             EditorModeJsonFormat editorMode = new EditorModeJsonFormat();
             editorMode.Enable = false;
             editorMode.RunningTimeChange = true;
+            editorMode.EnableDevelopModeButton = true;
             SaveEditModeData(editorMode);
             return editorMode;
         }

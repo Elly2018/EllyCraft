@@ -1,6 +1,6 @@
 ﻿namespace EllyCraft
 {
-    class CTransform
+    class CTransform : ESceneComponent
     {
     }
 }

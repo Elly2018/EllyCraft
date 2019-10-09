@@ -1,7 +1,8 @@
 ﻿namespace EllyCraft.GUI
 {
-    class CText
+    class CText : ESceneComponent
     {
         public string text;
+        public Color color;
     }
 }

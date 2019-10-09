@@ -1,6 +1,6 @@
 ﻿namespace EllyCraft.GUI
 {
-    class CRectTransform
+    class CRectTransform : ESceneComponent
     {
     }
 }

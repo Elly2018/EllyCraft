@@ -14,6 +14,21 @@
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,10 +49,10 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>EllyCraft.Game</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Crow, Version=0.7.1.30790, Culture=neutral, PublicKeyToken=13516c29fef4602c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Crow.OpenTK.0.7.2\lib\net45\Crow.dll</HintPath>
-    </Reference>
     <Reference Include="FileFormatWavefront, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FileFormatWavefront.1.0.3.0\lib\net40\FileFormatWavefront.dll</HintPath>
     </Reference>
@@ -64,7 +79,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CrowWindow.cs" />
     <Compile Include="Engine\Base\EObject.cs" />
     <Compile Include="Engine\Base\ESceneComponentBase.cs" />
     <Compile Include="Engine\Base\Manager\SceneManagerBase.cs" />
@@ -72,6 +86,8 @@
     <Compile Include="Engine\Entities\Component\CRectTransform.cs" />
     <Compile Include="Engine\Entities\Component\CText.cs" />
     <Compile Include="Engine\Entities\Component\CTransform.cs" />
+    <Compile Include="Engine\Entities\DataStruct\Color.cs" />
+    <Compile Include="Engine\Entities\Renderer\CImageRender.cs" />
     <Compile Include="Engine\Entities\Renderer\CMeshRender.cs" />
     <Compile Include="Engine\Entities\DataStruct\ETexture.cs" />
     <Compile Include="Engine\Entities\DataStruct\EMesh.cs" />
@@ -80,30 +96,49 @@
     <Compile Include="Engine\Entities\EScene.cs" />
     <Compile Include="Engine\Entities\ESceneComponent.cs" />
     <Compile Include="Engine\Entities\ESceneObject.cs" />
-    <Compile Include="Engine\Game.cs" />
     <Compile Include="Engine\Entities\Renderer\CTextRender.cs" />
+    <Compile Include="Engine\Game.cs" />
+    <Compile Include="Engine\Interface\2DRenderer.cs" />
+    <Compile Include="Engine\Interface\3DRenderer.cs" />
     <Compile Include="Engine\Interface\Logger.cs" />
+    <Compile Include="Engine\IO\LoadEditorMode.cs" />
     <Compile Include="Engine\IO\LoadMap.cs" />
     <Compile Include="Engine\IO\LoadResource.cs" />
     <Compile Include="Engine\IO\EPath.cs" />
+    <Compile Include="Engine\IO\SaveEditMode.cs" />
     <Compile Include="Engine\IO\SaveMap.cs" />
+    <Compile Include="Engine\IO\Struct\EditorModeJsonFormat.cs" />
     <Compile Include="Engine\Manager\MEditorMode.cs" />
+    <Compile Include="Engine\Manager\MInputManager.cs" />
     <Compile Include="Engine\Manager\MLoggerManager.cs" />
     <Compile Include="Engine\Manager\MSceneManager.cs" />
-    <Compile Include="InterfaceControler.cs" />
-    <Compile Include="OpenGL\Extensions.cs" />
-    <Compile Include="OpenGL\Shader.cs" />
-    <Compile Include="OpenGL\Texture.cs" />
-    <Compile Include="OpenGL\vaoMesh.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Crow.dll.config" />
     <None Include="OpenTK.dll.config" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

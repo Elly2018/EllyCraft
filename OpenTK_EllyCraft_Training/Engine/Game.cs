@@ -1,5 +1,6 @@
 ﻿using System;
 using OpenTK;
+using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.ES20;
 
@@ -9,32 +10,34 @@ namespace EllyCraft
     {
         public Game(int width, int height, string title) : base(width, height, GraphicsMode.Default, title) { }
 
-        protected override void OnLoad(EventArgs e)
-        {
-            GL.ClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-            MLoggerManager.Log("Game initialized");
-
-            base.OnLoad(e);
+        [STAThread]
+        static void Main()
+        {   
+            Game win = new Game(800, 600, "EllyCraft");
+            win.Run(30);
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnLoad(EventArgs e)
         {
-            GL.Viewport(0, 0, Width, Height);
-            base.OnResize(e);
+            base.OnLoad(e);
+            MLoggerManager.Log("Game initialized");
+            MEditorMode.Initialize();
         }
 
         protected override void OnRenderFrame(FrameEventArgs e)
         {
-            GL.Clear(ClearBufferMask.ColorBufferBit);
-            GL.Clear(ClearBufferMask.DepthBufferBit);
-
-            Context.SwapBuffers();
             base.OnRenderFrame(e);
         }
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
+
+            MInputManager.keyboardState = Keyboard.GetState();
+            MInputManager.mouseState = Mouse.GetState();
+            MInputManager.mouseCursorState = Mouse.GetCursorState();
+
+
         }
     }
 }

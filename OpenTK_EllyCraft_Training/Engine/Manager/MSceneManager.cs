@@ -10,7 +10,7 @@ namespace EllyCraft
         {
             foreach(var scene in LoadScenes)
             {
-                ESceneObject[] EO = scene.GetAllObject();
+                ESceneObject[] EO = scene.GetAllObject(true);
                 foreach (var obj in EO)
                 {
                     if (obj.name == name) return obj;
@@ -24,7 +24,7 @@ namespace EllyCraft
             List<ESceneObject> EOResult = new List<ESceneObject>();
             foreach (var scene in LoadScenes)
             {
-                ESceneObject[] EO = scene.GetAllObject();
+                ESceneObject[] EO = scene.GetAllObject(true);
                 foreach (var obj in EO)
                 {
                     if (obj.name == name) EOResult.Add(obj);
@@ -33,14 +33,14 @@ namespace EllyCraft
             return EOResult.ToArray();
         }
 
-        public static ESceneComponent FindComponent<T>(bool IncludeInactive)
+        public static T FindComponent<T>(bool IncludeInactive) where T : ESceneComponent
         {
             foreach (var scene in LoadScenes)
             {
-                ESceneObject[] EO = scene.GetAllObject();
+                ESceneObject[] EO = scene.GetAllObject(true);
                 foreach (var obj in EO)
                 {
-                    ESceneComponent t = obj.GetComponent<T>(IncludeInactive);
+                    T t = obj.GetComponent<T>(IncludeInactive);
                     if (t != null) return t;
                 }
             }
@@ -48,12 +48,12 @@ namespace EllyCraft
             return null;
         }
 
-        public static ESceneComponent[] FindComponents<T>(bool IncludeInactive)
+        public static T[] FindComponents<T>(bool IncludeInactive) where T : ESceneComponent
         {
-            List<ESceneComponent> EOCResult = new List<ESceneComponent>();
+            List<T> EOCResult = new List<T>();
             foreach (var scene in LoadScenes)
             {
-                ESceneObject[] EO = scene.GetAllObject();
+                ESceneObject[] EO = scene.GetAllObject(true);
                 foreach (var obj in EO)
                 {
                     EOCResult.AddRange(obj.GetComponents<T>(IncludeInactive));

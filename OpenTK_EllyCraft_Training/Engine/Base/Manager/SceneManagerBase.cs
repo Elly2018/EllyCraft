@@ -4,7 +4,6 @@ namespace EllyCraft.Base
 {
     class SceneManagerBase
     {
-        public static EScene ActiveScene;
         public static EScene[] LoadScenes;
 
         public static void SetActiveScene(int index)
@@ -56,9 +55,6 @@ namespace EllyCraft.Base
         {
             List<EScene> scenes = new List<EScene>();
             scenes.Add(scene);
-
-            if (ActiveScene == null)
-                ActiveScene = LoadScenes[0];
 
             LoadScenes = scenes.ToArray();
         }
