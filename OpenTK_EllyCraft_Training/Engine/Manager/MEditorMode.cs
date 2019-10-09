@@ -9,6 +9,9 @@ namespace EllyCraft
         private static EditorModeJsonFormat editorMode;
         private static EScene editorModeScene;
 
+        /// <summary>
+        /// Import resource, and create editor scene.
+        /// </summary>
         public static void Initialize()
         {
             LoadSetting();
@@ -19,7 +22,10 @@ namespace EllyCraft
 
             MSceneManager.LoadScene(EditorScene);
         }
-
+        /// <summary>
+        /// Import resource from drive
+        /// If nothing there then create a default editor setting file
+        /// </summary>
         private static void LoadSetting()
         {
             if (LoadEditorMode.EditorModeFileExist())
@@ -32,6 +38,10 @@ namespace EllyCraft
             }
             CreateEditorModeScene();
         }
+        /// <summary>
+        /// Editor scene
+        /// This should be only gui scene, and fuilfilled with control
+        /// </summary>
         private static void CreateEditorModeScene()
         {
             editorModeScene = new EScene("EditorMode");
@@ -42,11 +52,16 @@ namespace EllyCraft
             UIParent.AddComponent<CRectTransform>(new CRectTransform());
             TestText.AddComponent<CRectTransform>(new CRectTransform());
             CText targetText = TestText.AddComponent<CText>(new CText());
-            targetText.text = "Test";
+            CSpriteRender targetTextRender = TestText.AddComponent<CSpriteRender>(new CSpriteRender());
 
+            targetText.text = "Test";
+            targetText.color = new Color(1.0f, 1.0f, 1.0f);
             MSceneManager.LoadScene(editorModeScene);
         }
 
+        /// <summary>
+        /// Detect key for trigger editor console
+        /// </summary>
         public static void ConsoleKeyDetect()
         {
             if (MInputManager.keyboardState.IsKeyDown(Key.F12)){

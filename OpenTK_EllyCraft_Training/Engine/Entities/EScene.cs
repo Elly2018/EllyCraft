@@ -7,73 +7,114 @@ namespace EllyCraft
     {
         private List<ESceneObject> entities = new List<ESceneObject>();
 
-        protected delegate void Awake();
-        protected delegate void Start();
-        protected delegate void Update();
-        protected delegate void Render();
-        protected delegate void RenderGUI();
-        protected Awake awake;
-        protected Start start;
-        protected Update update;
-        protected Render render;
-        protected RenderGUI rendergui;
+        private bool _LoadingFinished = false;
+        public bool LoadingFinished
+        {
+            get { return _LoadingFinished; }
+        }
+        private bool _SceneOnLoadActive = false;
+        public bool SceneOnLoadActive
+        {
+            get { return _SceneOnLoadActive; }
+            set { _SceneOnLoadActive = value; }
+        }
 
+        /// <summary>
+        /// Trigger which for scene use to delegate gameObject stage event
+        /// </summary>
+        public delegate void Awake();
+        public delegate void Start();
+        public delegate void Update();
+        public delegate void Render();
+        public delegate void RenderGUI();
+        public delegate void Destroy();
+        public Awake awake;
+        public Start start;
+        public Update update;
+        public Render render;
+        public RenderGUI rendergui;
+        public Destroy destroy;
 
-        /*
-         * The scene when user enter game. the first game scene will open
-         * It will have default fps character and plane as ground
-        */
+        public const string DefaultSceneName = "Default Scene";
+
+        /// <summary>
+        /// The scene when user enter game. the first game scene will open
+        /// It will have default fps character and plane as ground</summary>
+        /// <summary>
+        /// <returns></returns>
         public static EScene GetDefaultScene()
         {
-            EScene e = new EScene("Default Scene");
+            EScene e = new EScene(DefaultSceneName);
 
             return e;
         }
 
-        /*
-         * Scene constructor
-        */
-        public EScene() { }
-        public EScene(string name) : base(name) { }
+        /// <summary>
+        /// Scene constructor
+        /// Default name will be "Empty scene"
+        /// </summary>
+        public EScene()
+        {
+            name = "Empty scene";
+        }
+        /// <summary>
+        /// Scene constructor
+        /// </summary>
+        /// <param name="name">Scene name</param>
+        public EScene(string name) : base(name)
+        {
+        }
 
-        /*
-         * Create any gameObject in scene
-         * This will add it in the list
-        */
+        /// <summary>
+        /// Create any gameObject in scene
+        /// This will add target scene in the list and register event
+        /// </summary>
+        /// <param name="obj">target gameObject</param>
+        /// <returns></returns>
         public ESceneObject CreateInstance(ESceneObject obj)
         {
             entities.Add(obj);
             ESceneComponent[] comps = obj.GetComponents<ESceneComponent>(true);
             foreach(var i in comps)
             {
-                awake += i.Awake;
-                start += i.Start;
-                update += i.Update;
-                render += i.Render;
-                rendergui += i.RenderGUI;
+                BindBehavior(i);
             }
             obj.parent = this;
             return obj;
         }
-        public ESceneObject CreateInstance(ESceneObject obj, ESceneObject parent)
+        /// <summary>
+        /// Create any gameObject in scene
+        /// This will add target scene in the list and register event
+        /// </summary>
+        /// <param name="obj">target gameObject</param>
+        /// <param name="parent">gameObject parent</param>
+        /// <returns></returns>
+        public ESceneObject CreateInstance(ESceneObject obj, EObject parent)
         {
             entities.Add(obj);
             ESceneComponent[] comps = obj.GetComponents<ESceneComponent>(true);
             foreach (var i in comps)
             {
-                awake += i.Awake;
-                start += i.Start;
-                update += i.Update;
-                render += i.Render;
-                rendergui += i.RenderGUI;
+                BindBehavior(i);
             }
             obj.parent = parent;
             return obj;
         }
+        public void BindBehavior(EllyBehavior target)
+        {
+            awake += target.Awake;
+            start += target.Start;
+            update += target.Update;
+            render += target.Render;
+            rendergui += target.RenderGUI;
+            destroy += target.Destroy;
+        }
 
-        /*
-         * Get all gameObject as array
-        */
+        /// <summary>
+        /// Get gameObjects in scene as array
+        /// </summary>
+        /// <param name="OnlyTopLayer">Choose only select first layer gameObject</param>
+        /// <returns></returns>
         public ESceneObject[] GetAllObject(bool OnlyTopLayer)
         {
             if (!OnlyTopLayer) return entities.ToArray();

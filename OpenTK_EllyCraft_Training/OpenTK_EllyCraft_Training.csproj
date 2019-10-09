@@ -87,7 +87,7 @@
     <Compile Include="Engine\Entities\Component\CText.cs" />
     <Compile Include="Engine\Entities\Component\CTransform.cs" />
     <Compile Include="Engine\Entities\DataStruct\Color.cs" />
-    <Compile Include="Engine\Entities\Renderer\CImageRender.cs" />
+    <Compile Include="Engine\Entities\Renderer\CSpriteRender.cs" />
     <Compile Include="Engine\Entities\Renderer\CMeshRender.cs" />
     <Compile Include="Engine\Entities\DataStruct\ETexture.cs" />
     <Compile Include="Engine\Entities\DataStruct\EMesh.cs" />
@@ -96,10 +96,10 @@
     <Compile Include="Engine\Entities\EScene.cs" />
     <Compile Include="Engine\Entities\ESceneComponent.cs" />
     <Compile Include="Engine\Entities\ESceneObject.cs" />
-    <Compile Include="Engine\Entities\Renderer\CTextRender.cs" />
     <Compile Include="Engine\Game.cs" />
     <Compile Include="Engine\Interface\2DRenderer.cs" />
     <Compile Include="Engine\Interface\3DRenderer.cs" />
+    <Compile Include="Engine\Interface\EllyBehavior.cs" />
     <Compile Include="Engine\Interface\Logger.cs" />
     <Compile Include="Engine\IO\LoadEditorMode.cs" />
     <Compile Include="Engine\IO\LoadMap.cs" />
@@ -111,7 +111,10 @@
     <Compile Include="Engine\Manager\MEditorMode.cs" />
     <Compile Include="Engine\Manager\MInputManager.cs" />
     <Compile Include="Engine\Manager\MLoggerManager.cs" />
+    <Compile Include="Engine\Manager\MMaterialManager.cs" />
     <Compile Include="Engine\Manager\MSceneManager.cs" />
+    <Compile Include="Engine\Manager\MShaderManager.cs" />
+    <Compile Include="Engine\Manager\MTextureManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

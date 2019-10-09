@@ -2,7 +2,7 @@
 
 namespace EllyCraft.Base
 {
-    abstract class ESceneComponentBase : EObject
+    abstract class ESceneComponentBase : EObject, EllyBehavior
     {
         public ESceneObject sceneObject;
 
@@ -11,6 +11,7 @@ namespace EllyCraft.Base
         public virtual void Update() { }
         public virtual void Render() { }
         public virtual void RenderGUI() { }
+        public virtual void Destroy() { }
 
         public void Reset()
         {

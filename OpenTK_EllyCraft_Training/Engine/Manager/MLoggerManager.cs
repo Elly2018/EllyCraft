@@ -2,6 +2,48 @@
 
 namespace EllyCraft
 {
+    /// <summary>
+    /// The master logger, which will register at the begining of the program
+    /// </summary>
+    class SystemLogger : Logger
+    {
+        private int SystemLevel = 3;
+
+        /// <summary>
+        /// The level between 1 - 5, it will define the filter level of this logger
+        /// </summary>
+        /// <param name="level"></param>
+        public SystemLogger(int level)
+        {
+            SystemLevel = level;
+        }
+
+        public int GetLevel()
+        {
+            return SystemLevel;
+        }
+        public void Log(object o)
+        {
+            System.Console.ForegroundColor = System.ConsoleColor.White;
+            System.Console.WriteLine(o.ToString());
+        }
+        public void LogError(object o)
+        {
+            System.Console.ForegroundColor = System.ConsoleColor.Red;
+            System.Console.WriteLine(o.ToString());
+        }
+        public void LogWarning(object o)
+        {
+            System.Console.ForegroundColor = System.ConsoleColor.Yellow;
+            System.Console.WriteLine(o.ToString());
+        }
+    }
+
+    /// <summary>
+    /// When program active logger manager which program want to print something.
+    /// It will loop all the logger register before, and trigger all interface.
+    /// User can custom their own logger system.
+    /// </summary>
     sealed class MLoggerManager
     {
         private static List<Logger> loggers = new List<Logger>();
@@ -32,38 +74,33 @@ namespace EllyCraft
         }
         public static void Log(object o)
         {
-            System.Console.ForegroundColor = System.ConsoleColor.White;
-            System.Console.WriteLine(o.ToString());
-
             foreach (var i in loggers)
             {
-                if(i.GetLevel() <= level)
+                if(i.GetLevel() >= level)
                     i.Log(o.ToString());
             }
         }
         public static void LogError(object o)
         {
-            System.Console.ForegroundColor = System.ConsoleColor.Red;
-            System.Console.WriteLine(o.ToString());
-
             foreach (var i in loggers)
             {
-                if (i.GetLevel() <= level)
+                if (i.GetLevel() >= level)
                     i.LogError(o.ToString());
             }
         }
         public static void LogWarning(object o)
         {
-            System.Console.ForegroundColor = System.ConsoleColor.Yellow;
-            System.Console.WriteLine(o.ToString());
-
             foreach (var i in loggers)
             {
-                if (i.GetLevel() <= level)
+                if (i.GetLevel() >= level)
                     i.LogWarning(o.ToString());
             }
         }
 
+        /// <summary>
+        /// The pre-define message can be use
+        /// Usually will return a string for logger to output
+        /// </summary>
         public class LoggerMessage
         {
             public static string CannotGetResource(string resourceName, string path)

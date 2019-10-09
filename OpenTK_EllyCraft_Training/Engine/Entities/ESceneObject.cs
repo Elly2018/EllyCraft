@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace EllyCraft
 {
-    class ESceneObject : EObject
+    class ESceneObject : EObject, EllyBehavior
     {
         private List<ESceneComponent> components = new List<ESceneComponent>();
 
@@ -17,6 +17,7 @@ namespace EllyCraft
         {
             components.Add(t);
             t.sceneObject = this;
+            GetCurrentScene().BindBehavior(this);
             return t;
         }
 
@@ -60,6 +61,31 @@ namespace EllyCraft
             }
 
             return (target as ESceneObject).parent as EScene;
+        }
+
+        public void Awake()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Start()
+        {
+        }
+
+        public void Update()
+        {
+        }
+
+        public void Render()
+        {
+        }
+
+        public void RenderGUI()
+        {
+        }
+
+        public void Destroy()
+        {
         }
     }
 
