@@ -12,45 +12,86 @@ namespace EllyCraft
     /// </summary>
     sealed class MSceneManager : SceneManagerBase
     {
+        public static bool UpdateEmptyEventTrigger = true;
+        public static bool RenderEmptyEventTrigger = true;
+        public static bool RenderGUIEmptyEventTrigger = true;
+
         /// <summary>
         /// Will send the update to other scene
         /// After initialization it will update the logic for each scene
         /// </summary>
         public static void SceneUpdate()
         {
+            bool Invoked = false;
             foreach (var s in LoadScenes)
             {
                 if(s.update != null && s.LoadingFinished && s.SceneOnLoadActive)
+                {
                     s.update.Invoke();
+                    //MLoggerManager.Log("Scene manager update log test");
+
+                    UpdateEmptyEventTrigger = false;
+                    Invoked = true;
+                }
                 if(s.update != null && s.LoadingFinished && !s.SceneOnLoadActive)
                 {
                     s.awake();
                     s.start();
                     s.SceneOnLoadActive = true;
+                    //MLoggerManager.Log("Scene manager awake start log test");
+
+                    UpdateEmptyEventTrigger = false;
+                    Invoked = true;
                 }
             }
+
+            if(!Invoked && !UpdateEmptyEventTrigger)
+                MLoggerManager.LogWarning("Scene Manager Render gui does not have any event to invoke");
+            UpdateEmptyEventTrigger = true;
         }
         /// <summary>
         /// 3D render for scene object
         /// </summary>
         public static void SceneRender()
         {
+            bool Invoked = false;
             foreach(var s in LoadScenes)
             {
-                if(s.render != null)
+                if(s.render != null && s.SceneOnLoadActive)
+                {
                     s.render.Invoke();
+                    //MLoggerManager.Log("Scene manager render log test");
+
+                    RenderEmptyEventTrigger = false;
+                    Invoked = true;
+                }
             }
+
+            if (!Invoked && !RenderEmptyEventTrigger)
+                MLoggerManager.LogWarning("Scene Manager Render does not have any event to invoke");
+            RenderEmptyEventTrigger = true;
         }
         /// <summary>
         /// 2D render for scene gui
         /// </summary>
         public static void SceneGUIRender()
         {
+            bool Invoked = false;
             foreach (var s in LoadScenes)
             {
-                if (s.rendergui != null)
+                if (s.rendergui != null && s.SceneOnLoadActive)
+                {
                     s.rendergui.Invoke();
+                    //MLoggerManager.Log("Scene manager render gui log test");
+
+                    RenderGUIEmptyEventTrigger = false;
+                    Invoked = true;
+                }   
             }
+
+            if (!Invoked && !RenderGUIEmptyEventTrigger)
+                MLoggerManager.LogWarning("Scene Manager Render gui does not have any event to invoke");
+            RenderGUIEmptyEventTrigger = true;
         }
 
         /// <summary>

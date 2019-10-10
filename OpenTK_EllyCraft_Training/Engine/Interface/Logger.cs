@@ -2,6 +2,7 @@
 {
     interface Logger
     {
+        string GetTag();
         /// <summary>
         /// Return the level of this logger filter level
         /// </summary>

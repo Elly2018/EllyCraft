@@ -22,20 +22,25 @@ namespace EllyCraft
         {
             return SystemLevel;
         }
+
+        public string GetTag()
+        {
+            return "System";
+        }
         public void Log(object o)
         {
             System.Console.ForegroundColor = System.ConsoleColor.White;
-            System.Console.WriteLine(o.ToString());
+            System.Console.WriteLine("[System] " + o.ToString());
         }
         public void LogError(object o)
         {
             System.Console.ForegroundColor = System.ConsoleColor.Red;
-            System.Console.WriteLine(o.ToString());
+            System.Console.WriteLine("[System] " + o.ToString());
         }
         public void LogWarning(object o)
         {
             System.Console.ForegroundColor = System.ConsoleColor.Yellow;
-            System.Console.WriteLine(o.ToString());
+            System.Console.WriteLine("[System] " + o.ToString());
         }
     }
 

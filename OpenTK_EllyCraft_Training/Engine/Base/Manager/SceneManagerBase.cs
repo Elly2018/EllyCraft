@@ -54,6 +54,8 @@ namespace EllyCraft.Base
         private static void m_LoadScene(EScene scene)
         {
             List<EScene> scenes = new List<EScene>();
+            if(LoadScenes != null)
+                scenes.AddRange(LoadScenes);
             scenes.Add(scene);
 
             LoadScenes = scenes.ToArray();

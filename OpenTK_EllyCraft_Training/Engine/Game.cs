@@ -4,6 +4,10 @@ using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.ES30;
 
+using NanoVGDotNet.NanoVG;
+using EllyCraft.IO;
+using EllyCraft.GUI;
+
 namespace EllyCraft
 {
     /// <summary>
@@ -25,13 +29,24 @@ namespace EllyCraft
             win.Run(30);
         }
 
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            GL.Viewport(this.ClientRectangle);
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             /* Register system */
             MLoggerManager.AddLogger(new SystemLogger(1));
             MLoggerManager.Log("Logger initialized");
 
+            /* Initialize all io */
+            InitializeIO();
+
+            /* Initialize all manager */
             MInputManager.targetWindow = this;
+            InitializeManager();
 
             /* Display the window and grpahics api information */
             MLoggerManager.Log("Game initialized");
@@ -43,9 +58,12 @@ namespace EllyCraft
             MSceneManager.LoadScene(EScene.GetDefaultScene());
             MSceneManager.SetActiveScene(EScene.DefaultSceneName);
 
+            /* Initialize gui drawer */
+            CSpriteRender.ctx = GlNanoVg.CreateGl(NvgCreateFlags.AntiAlias | NvgCreateFlags.StencilStrokes);
+            CSpriteRender.style = new EGUIStyle();
+
             base.OnLoad(e);
         }
-
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             /* Clear the screen color buffer and depth bit, or update the frame */
@@ -55,7 +73,10 @@ namespace EllyCraft
             MSceneManager.SceneRender();
 
             /* Render every scene 2D object */
+            NanoVg.BeginFrame(CSpriteRender.ctx, Width, Height, (float)Width / (float)Height);
             MSceneManager.SceneGUIRender();
+            NanoVg.EndFrame(CSpriteRender.ctx);
+            
 
             /* Switch the frame pull update event */
             Context.SwapBuffers();
@@ -74,9 +95,23 @@ namespace EllyCraft
             /* Pull logic update event through out every scene */
             MSceneManager.SceneUpdate();
 
-            MLoggerManager.Log(MInputManager.GetWindowMousePos().x + "  " + MInputManager.GetWindowMousePos().y);
-
             base.OnUpdateFrame(e);
+        }
+
+        private static void InitializeIO()
+        {
+            EditModeReader.Initialize("EditMode.json");
+            EditModeWriter.Initialize("EditMode.json");
+            MLoggerManager.Log("EditMode io initialized");
+
+            HotkeyReader.Initialize("Hotkey.json");
+            HotkeyWriter.Initialize("Hotkey.json");
+            MLoggerManager.Log("Hotkey io initialized");
+        }
+
+        private static void InitializeManager()
+        {
+            MInputManager.Initialize();
         }
     }
 }

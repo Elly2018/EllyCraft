@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OpenTK_EllyCraft_Training.Engine.IO
 {
-    class LoadResource
+    class MapWriter
     {
     }
 }

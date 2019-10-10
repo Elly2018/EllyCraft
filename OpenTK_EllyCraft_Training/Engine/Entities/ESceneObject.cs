@@ -74,10 +74,7 @@ namespace EllyCraft
         {
             foreach (var com in components)
             {
-                if (com.GetType() == typeof(T))
-                {
-                    return (T)com;
-                }
+                return (T)com;
             }
             return null;
         }
@@ -87,10 +84,7 @@ namespace EllyCraft
             List<T> EOC = new List<T>();
             foreach (var com in components)
             {
-                if (com.GetType() == typeof(T))
-                {
-                    EOC.Add((T)com);
-                }
+                EOC.Add((T)com);
             }
             return EOC.ToArray();
         }
@@ -99,7 +93,7 @@ namespace EllyCraft
         {
             EObject target = this;
 
-            while((target as ESceneObject).parent.GetType() != typeof(EScene))
+            while(!target.GetType().IsAssignableFrom(typeof(ESceneObject)))
             {
                 target = (target as ESceneObject).parent;
             }
@@ -109,27 +103,45 @@ namespace EllyCraft
 
         public void Awake()
         {
-            throw new System.NotImplementedException();
+            foreach(var i in components)
+            {
+                i.Awake();
+            }
         }
-
         public void Start()
         {
+            foreach (var i in components)
+            {
+                i.Start();
+            }
         }
-
         public void Update()
         {
+            foreach (var i in components)
+            {
+                i.Update();
+            }
         }
-
         public void Render()
         {
+            foreach (var i in components)
+            {
+                i.Render();
+            }
         }
-
         public void RenderGUI()
         {
+            foreach (var i in components)
+            {
+                i.RenderGUI();
+            }
         }
-
         public void Destroy()
         {
+            foreach (var i in GetComponents())
+            {
+                i.Destroy();
+            }
         }
     }
 

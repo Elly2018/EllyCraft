@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenTK_EllyCraft_Training.Engine.IO
+namespace OpenTK_EllyCraft_Training.Engine.Entities.GUIComponent
 {
-    class LoadMap
+    class CImage
     {
     }
 }

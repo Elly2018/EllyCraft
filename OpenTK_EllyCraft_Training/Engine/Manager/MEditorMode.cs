@@ -28,13 +28,13 @@ namespace EllyCraft
         /// </summary>
         private static void LoadSetting()
         {
-            if (LoadEditorMode.EditorModeFileExist())
+            if (EditModeReader.CheckFileExist())
             {
-                editorMode = LoadEditorMode.GetEditorModeData();
+                editorMode = EditModeReader.ReadTargetFile<EditorModeJsonFormat>();
             }
             else
             {
-                editorMode = SaveEditMode.CreateDefault();
+                editorMode = EditModeWriter.CreateDefault();
             }
             CreateEditorModeScene();
         }
@@ -46,15 +46,18 @@ namespace EllyCraft
         {
             editorModeScene = new EScene("EditorMode");
 
-            ESceneObject UIParent = editorModeScene.CreateInstance(new ESceneObject("UI"));
-            ESceneObject TestText = editorModeScene.CreateInstance(new ESceneObject("Test"), UIParent);
+            ESceneObject UIParent = editorModeScene.CreateInstance(new ESceneObject("Menu"));
+            ESceneObject TestW = editorModeScene.CreateInstance(new ESceneObject("Test"));
 
             UIParent.AddComponent<CRectTransform>();
-            TestText.AddComponent<CRectTransform>();
-            CText targetText = TestText.AddComponent<CText>();
+            CRectTransform r = TestW.AddComponent<CRectTransform>();
 
-            targetText.text = "Test";
-            targetText.color = new EColor(1.0f, 1.0f, 1.0f);
+            r.rect = new ERect(50, 80, 50, 100);
+            CWindow targetW = TestW.AddComponent<CWindow>();
+            TestW.AddComponent<CMenuBar>();
+
+            editorModeScene.CompleteLoading();
+
             MSceneManager.LoadScene(editorModeScene);
         }
 

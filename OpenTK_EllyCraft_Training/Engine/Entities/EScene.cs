@@ -46,6 +46,12 @@ namespace EllyCraft
         {
             EScene e = new EScene(DefaultSceneName);
 
+            ESceneObject Floor = new ESceneObject("Floor");
+            e.CreateInstance(Floor);
+            Floor.AddComponent<CMeshFilter>();
+            Floor.AddComponent<CMeshRender>();
+
+            e.CompleteLoading();
             return e;
         }
 
@@ -63,6 +69,14 @@ namespace EllyCraft
         /// <param name="name">Scene name</param>
         public EScene(string name) : base(name)
         {
+        }
+
+        /// <summary>
+        /// After scene loading finish. call this method to make it active
+        /// </summary>
+        public void CompleteLoading()
+        {
+            _LoadingFinished = true;
         }
 
         /// <summary>
