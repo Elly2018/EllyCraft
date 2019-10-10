@@ -17,9 +17,10 @@ namespace EllyCraft.GUI
 
         public virtual bool MouseEnter()
         {
+            ERect RenderArea = cRect.GetViewportRenderArea();
             if (!Enter)
             {
-                if (ERect.Checkcollide(cRect.rect, GetMouseRect()))
+                if (ERect.Checkcollide(RenderArea, GetMouseRect()))
                 {
                     Enter = true;
                     return true;
@@ -29,9 +30,10 @@ namespace EllyCraft.GUI
         }
         public virtual bool MouseExit()
         {
+            ERect RenderArea = cRect.GetViewportRenderArea();
             if (Enter)
             {
-                if (!ERect.Checkcollide(cRect.rect, GetMouseRect()))
+                if (!ERect.Checkcollide(RenderArea, GetMouseRect()))
                 {
                     Enter = false;
                     return true;

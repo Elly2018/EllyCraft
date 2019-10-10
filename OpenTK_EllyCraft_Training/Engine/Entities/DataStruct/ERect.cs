@@ -2,7 +2,7 @@
 {
     class ERect
     {
-        public double x, y, width, height;
+        public double x, y, width, height, Left, Right, Top, Bottom;
 
         public ERect()
         {

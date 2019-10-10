@@ -62,6 +62,7 @@ namespace EllyCraft
         public EScene()
         {
             name = "Empty scene";
+            MSceneManager.LoadScene(this);
         }
         /// <summary>
         /// Scene constructor
@@ -69,6 +70,7 @@ namespace EllyCraft
         /// <param name="name">Scene name</param>
         public EScene(string name) : base(name)
         {
+            MSceneManager.LoadScene(this);
         }
 
         /// <summary>
@@ -87,14 +89,7 @@ namespace EllyCraft
         /// <returns></returns>
         public ESceneObject CreateInstance(ESceneObject obj)
         {
-            entities.Add(obj);
-            ESceneComponent[] comps = obj.GetComponents<ESceneComponent>(true);
-            foreach(var i in comps)
-            {
-                BindBehavior(i);
-            }
-            obj.parent = this;
-            return obj;
+            return CreateInstance(obj, null);
         }
         /// <summary>
         /// Create any gameObject in scene
@@ -103,7 +98,7 @@ namespace EllyCraft
         /// <param name="obj">target gameObject</param>
         /// <param name="parent">gameObject parent</param>
         /// <returns></returns>
-        public ESceneObject CreateInstance(ESceneObject obj, EObject parent)
+        public ESceneObject CreateInstance(ESceneObject obj, ESceneObject parent)
         {
             entities.Add(obj);
             ESceneComponent[] comps = obj.GetComponents<ESceneComponent>(true);
@@ -111,7 +106,14 @@ namespace EllyCraft
             {
                 BindBehavior(i);
             }
-            obj.parent = parent;
+            obj.Parent = parent;
+
+            MLoggerManager.Log("SceneObject: " + obj.name);
+            MLoggerManager.Log("\tTo scene: " + name);
+            if (parent == null) MLoggerManager.Log("\tParent: null");
+            else MLoggerManager.Log("\tParent: " + parent.name);
+            MLoggerManager.Log("");
+
             return obj;
         }
         public void BindBehavior(EllyBehavior target)
@@ -136,7 +138,7 @@ namespace EllyCraft
             List<ESceneObject> result = new List<ESceneObject>();
             foreach(var e in entities)
             {
-                if (e.parent.GetType() == typeof(EScene)) result.Add(e);
+                if (e.Parent == null) result.Add(e);
             }
             return result.ToArray();
         }

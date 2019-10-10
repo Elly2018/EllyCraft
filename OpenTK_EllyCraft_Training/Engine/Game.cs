@@ -55,7 +55,7 @@ namespace EllyCraft
             MEditorMode.Initialize();
 
             /* Load the default scene and set this scene as active scene */
-            MSceneManager.LoadScene(EScene.GetDefaultScene());
+            EScene.GetDefaultScene();
             MSceneManager.SetActiveScene(EScene.DefaultSceneName);
 
             /* Initialize gui drawer */

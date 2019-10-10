@@ -59,6 +59,8 @@ namespace EllyCraft.Base
             scenes.Add(scene);
 
             LoadScenes = scenes.ToArray();
+            MLoggerManager.Log("Scene loading: " + scene.name);
+            MLoggerManager.Log("");
         }
 
         public static void UnloadScene(int index)

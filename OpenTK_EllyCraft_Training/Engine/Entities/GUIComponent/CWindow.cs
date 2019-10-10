@@ -27,15 +27,16 @@ namespace EllyCraft.GUI
         public override void RenderGUI()
         {
             base.RenderGUI();
-            rect.rect = CheckSize(rect.rect);
+            ERect RenderArea = rect.GetViewportRenderArea();
+            RenderArea = CheckSize(RenderArea);
 
             /* Base background render */
             NanoVg.BeginPath(CSpriteRender.ctx);
             NanoVg.Rect(CSpriteRender.ctx,
-                (float)rect.rect.x,
-                (float)rect.rect.y,
-                (float)rect.rect.width,
-                (float)rect.rect.height);
+                (float)RenderArea.x,
+                (float)RenderArea.y,
+                (float)RenderArea.width,
+                (float)RenderArea.height);
             NanoVg.FillColor(CSpriteRender.ctx, EColorToNvgColor(style.BackgroundColor));
             NanoVg.Fill(CSpriteRender.ctx);
         }

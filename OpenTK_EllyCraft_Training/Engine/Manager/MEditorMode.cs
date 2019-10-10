@@ -47,18 +47,27 @@ namespace EllyCraft
             editorModeScene = new EScene("EditorMode");
 
             ESceneObject UIParent = editorModeScene.CreateInstance(new ESceneObject("Menu"));
+            ESceneObject ButtonTest = editorModeScene.CreateInstance(new ESceneObject("Button"), UIParent);
+
             ESceneObject TestW = editorModeScene.CreateInstance(new ESceneObject("Test"));
 
             UIParent.AddComponent<CRectTransform>();
             CRectTransform r = TestW.AddComponent<CRectTransform>();
+            ButtonTest.AddComponent<CRectTransform>();
+            ButtonTest.AddComponent<CGUIRaycast>();
 
-            r.rect = new ERect(50, 80, 50, 100);
+            CButton b = ButtonTest.AddComponent<CButton>();
             CWindow targetW = TestW.AddComponent<CWindow>();
             TestW.AddComponent<CMenuBar>();
 
-            editorModeScene.CompleteLoading();
+            r.anchor.rect = new ERect(50, 80, 50, 100);
+            r.anchor.anctorType = EAnchor.AnctorType.TopLeft;
 
-            MSceneManager.LoadScene(editorModeScene);
+            b.ButtonColor = new EColor(0.5f, 0.5f, 0.5f);
+            b.ButtonHightLightColor = new EColor(0.8f, 0.5f, 0.5f);
+            b.ButtonPressColor = new EColor(0.2f, 0.2f, 0.4f);
+
+            editorModeScene.CompleteLoading();
         }
 
         /// <summary>

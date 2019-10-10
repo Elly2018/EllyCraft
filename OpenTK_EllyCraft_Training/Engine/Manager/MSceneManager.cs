@@ -159,5 +159,18 @@ namespace EllyCraft
             }
             return EOCResult.ToArray();
         }
+
+        public static EScene CheckSceneObjectParentScene(ESceneObject target)
+        {
+            foreach(var i in LoadScenes)
+            {
+                ESceneObject[] allObject = i.GetAllObject(false);
+                foreach(var j in allObject)
+                {
+                    if (j == target) return i;
+                }
+            }
+            return null;
+        }
     }
 }
