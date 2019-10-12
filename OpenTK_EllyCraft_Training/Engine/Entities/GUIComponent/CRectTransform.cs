@@ -13,66 +13,16 @@
                 parentRect = sceneObject.Parent.GetComponent<CRectTransform>(true);
         }
 
-        public ERect GetViewportRenderArea()
+        public ERect GetParentViewportRenderArea()
         {
-            ERect result = new ERect();
-            if (anchor.anctorType == EAnchor.AnctorType.TopLeft || anchor.anctorType == EAnchor.AnctorType.Top || anchor.anctorType == EAnchor.AnctorType.TopRight ||
-                anchor.anctorType == EAnchor.AnctorType.MiddleLeft || anchor.anctorType == EAnchor.AnctorType.Center || anchor.anctorType == EAnchor.AnctorType.MiddleRight ||
-                anchor.anctorType == EAnchor.AnctorType.BottomLeft || anchor.anctorType == EAnchor.AnctorType.Bottom || anchor.anctorType == EAnchor.AnctorType.BottomRight)
-                result = GetViewportRenderAreaAnchorAdjustment(anchor.anctorType, anchor.rect);
-
-            result = GetViewportRenderAreaPivotAdjustment(anchor.pivotType, result);
-
-            return result;
+            if (parentRect == null)
+                return new ERect(0, 0, MInputManager.GetWindowSize().x, MInputManager.GetWindowSize().y);
+            return parentRect.GetViewportRenderArea();
         }
 
-        /// <summary>
-        /// According to anchor pos, adjust the position of Rect
-        /// This will only change the x, y of Rect structor
-        /// </summary>
-        /// <param name="anchorType">Anchor enum</param>
-        /// <param name="rect">Target to adjust</param>
-        /// <returns></returns>
-        private ERect GetViewportRenderAreaAnchorAdjustment(EAnchor.AnctorType anchorType, ERect rect)
+        public ERect GetViewportRenderArea()
         {
-            switch (anchorType)
-            {
-                case EAnchor.AnctorType.TopLeft:
-                    return rect;
-                case EAnchor.AnctorType.Top:
-                    rect.x += MInputManager.GetWindowSize().x / 2;
-                    return rect;
-                case EAnchor.AnctorType.TopRight:
-                    rect.x += MInputManager.GetWindowSize().x;
-                    return rect;
-
-                case EAnchor.AnctorType.MiddleLeft:
-                    rect.y += MInputManager.GetWindowSize().y / 2;
-                    return rect;
-                case EAnchor.AnctorType.Center:
-                    rect.x += MInputManager.GetWindowSize().x / 2;
-                    rect.y += MInputManager.GetWindowSize().y / 2;
-                    return rect;
-                case EAnchor.AnctorType.MiddleRight:
-                    rect.x += MInputManager.GetWindowSize().x;
-                    rect.y += MInputManager.GetWindowSize().y / 2;
-                    return rect;
-
-                case EAnchor.AnctorType.BottomLeft:
-                    rect.y += MInputManager.GetWindowSize().y;
-                    return rect;
-                case EAnchor.AnctorType.Bottom:
-                    rect.x += MInputManager.GetWindowSize().x / 2;
-                    rect.y += MInputManager.GetWindowSize().y;
-                    return rect;
-                case EAnchor.AnctorType.BottomRight:
-                    rect.x += MInputManager.GetWindowSize().x;
-                    rect.y += MInputManager.GetWindowSize().y;
-                    return rect;
-            }
-
-            MLoggerManager.LogError("Failed to transfer 2D coordinate system : Anchor Adjustment");
-            return rect;
+            return GetViewportRenderAreaPivotAdjustment(anchor.pivotType, anchor.rect);
         }
         /// <summary>
         /// According to pivot type, adjust the size of Rect
@@ -86,26 +36,47 @@
             switch (pivotType)
             {
                 case EAnchor.PivotType.TopLeft:
-                    break;
+                    return rect;
                 case EAnchor.PivotType.Top:
-                    break;
+                    rect.x -= rect.width / 2;
+                    return rect;
                 case EAnchor.PivotType.TopRight:
-                    break;
+                    rect.x -= rect.width;
+                    return rect;
                 case EAnchor.PivotType.MiddleLeft:
-                    break;
+                    rect.y -= rect.height / 2;
+                    return rect;
                 case EAnchor.PivotType.Center:
-                    break;
+                    rect.x -= rect.width / 2;
+                    rect.y -= rect.height / 2;
+                    return rect;
                 case EAnchor.PivotType.MiddleRight:
-                    break;
+                    rect.x -= rect.width;
+                    rect.y -= rect.height / 2;
+                    return rect;
                 case EAnchor.PivotType.BottomLeft:
-                    break;
+                    rect.y -= rect.height;
+                    return rect;
                 case EAnchor.PivotType.Bottom:
-                    break;
+                    rect.x -= rect.width / 2;
+                    rect.y -= rect.height;
+                    return rect;
                 case EAnchor.PivotType.BottomRight:
-                    break;
+                    rect.x -= rect.width;
+                    rect.y -= rect.height;
+                    return rect;
             }
 
             MLoggerManager.LogError("Failed to transfer 2D coordinate system : Pivot Adjustment");
+            return rect;
+        }
+
+        private ERect ApplyParentRectToLocalRect(ERect rect)
+        {
+            rect.x += anchor.rect.x;
+            rect.y += anchor.rect.y;
+            rect.width = anchor.rect.width;
+            rect.height = anchor.rect.height;
             return rect;
         }
     }

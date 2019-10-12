@@ -5,6 +5,11 @@ namespace EllyCraft
 {
     class EScene : EObject
     {
+        public enum StageCall
+        {
+            Awake, Start, Update, Render, RenderGUI, Destroy
+        }
+
         private List<ESceneObject> entities = new List<ESceneObject>();
 
         private bool _LoadingFinished = false;
@@ -18,24 +23,91 @@ namespace EllyCraft
             get { return _SceneOnLoadActive; }
             set { _SceneOnLoadActive = value; }
         }
+        public const string DefaultSceneName = "Default Scene";
 
         /// <summary>
         /// Trigger which for scene use to delegate gameObject stage event
         /// </summary>
-        public delegate void Awake();
-        public delegate void Start();
-        public delegate void Update();
-        public delegate void Render();
-        public delegate void RenderGUI();
-        public delegate void Destroy();
-        public Awake awake;
-        public Start start;
-        public Update update;
-        public Render render;
-        public RenderGUI rendergui;
-        public Destroy destroy;
+        public void Awake()
+        {
 
-        public const string DefaultSceneName = "Default Scene";
+            List<ESceneObject> local = new List<ESceneObject>(entities);
+            while (local.Count != 0)
+            {
+                local = EventCall(local, StageCall.Awake);
+            }
+        }
+        public void Start()
+        {
+            List<ESceneObject> local = new List<ESceneObject>(entities);
+            while (local.Count != 0)
+            {
+                local = EventCall(local, StageCall.Start);
+            }
+        }
+        public void Update()
+        {
+            List<ESceneObject> local = new List<ESceneObject>(entities);
+            while (local.Count != 0)
+            {
+                local = EventCall(local, StageCall.Update);
+            }
+        }
+        public void Render()
+        {
+            List<ESceneObject> local = new List<ESceneObject>(entities);
+            while (local.Count != 0)
+            {
+                local = EventCall(local, StageCall.Render);
+            }
+        }
+        public void RenderGUI()
+        {
+            List<ESceneObject> local = new List<ESceneObject>(entities);
+            while (local.Count != 0)
+            {
+                local = EventCall(local, StageCall.RenderGUI);
+            }
+        }
+        public void Destroy()
+        {
+            List<ESceneObject> local = new List<ESceneObject>(entities);
+            while (local.Count != 0)
+            {
+                local = EventCall(local, StageCall.Destroy);
+            }
+        }
+        public List<ESceneObject> EventCall(List<ESceneObject> dele, StageCall sc)
+        {
+            List<ESceneObject> result = new List<ESceneObject>();
+            foreach(ESceneObject objc in dele)
+            {
+                result.AddRange(objc.child);
+
+                switch (sc)
+                {
+                    case StageCall.Awake:
+                        objc.Awake();
+                        break;
+                    case StageCall.Start:
+                        objc.Start();
+                        break;
+                    case StageCall.Update:
+                        objc.Update();
+                        break;
+                    case StageCall.Render:
+                        objc.Render();
+                        break;
+                    case StageCall.RenderGUI:
+                        objc.RenderGUI();
+                        break;
+                    case StageCall.Destroy:
+                        objc.Destroy();
+                        break;
+                }
+            }
+            return result;
+        }
 
         /// <summary>
         /// The scene when user enter game. the first game scene will open
@@ -100,13 +172,14 @@ namespace EllyCraft
         /// <returns></returns>
         public ESceneObject CreateInstance(ESceneObject obj, ESceneObject parent)
         {
-            entities.Add(obj);
-            ESceneComponent[] comps = obj.GetComponents<ESceneComponent>(true);
-            foreach (var i in comps)
+            if(parent == null)
+                entities.Add(obj);
+
+            if(parent != null)
             {
-                BindBehavior(i);
+                obj.Parent = parent;
+                parent.child.Add(obj);
             }
-            obj.Parent = parent;
 
             MLoggerManager.Log("SceneObject: " + obj.name);
             MLoggerManager.Log("\tTo scene: " + name);
@@ -115,15 +188,6 @@ namespace EllyCraft
             MLoggerManager.Log("");
 
             return obj;
-        }
-        public void BindBehavior(EllyBehavior target)
-        {
-            awake += target.Awake;
-            start += target.Start;
-            update += target.Update;
-            render += target.Render;
-            rendergui += target.RenderGUI;
-            destroy += target.Destroy;
         }
 
         /// <summary>

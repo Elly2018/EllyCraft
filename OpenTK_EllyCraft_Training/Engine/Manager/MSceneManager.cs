@@ -1,4 +1,5 @@
 ﻿using EllyCraft.Base;
+using EllyCraft.GUI;
 using System;
 using System.Collections.Generic;
 
@@ -25,18 +26,18 @@ namespace EllyCraft
             bool Invoked = false;
             foreach (var s in LoadScenes)
             {
-                if(s.update != null && s.LoadingFinished && s.SceneOnLoadActive)
+                if(s.LoadingFinished && s.SceneOnLoadActive)
                 {
-                    s.update.Invoke();
+                    s.Update();
                     //MLoggerManager.Log("Scene manager update log test");
 
                     UpdateEmptyEventTrigger = false;
                     Invoked = true;
                 }
-                if(s.update != null && s.LoadingFinished && !s.SceneOnLoadActive)
+                if(s.LoadingFinished && !s.SceneOnLoadActive)
                 {
-                    s.awake();
-                    s.start();
+                    s.Awake();
+                    s.Start();
                     s.SceneOnLoadActive = true;
                     //MLoggerManager.Log("Scene manager awake start log test");
 
@@ -57,9 +58,9 @@ namespace EllyCraft
             bool Invoked = false;
             foreach(var s in LoadScenes)
             {
-                if(s.render != null && s.SceneOnLoadActive)
+                if(s.SceneOnLoadActive)
                 {
-                    s.render.Invoke();
+                    s.Render();
                     //MLoggerManager.Log("Scene manager render log test");
 
                     RenderEmptyEventTrigger = false;
@@ -79,9 +80,9 @@ namespace EllyCraft
             bool Invoked = false;
             foreach (var s in LoadScenes)
             {
-                if (s.rendergui != null && s.SceneOnLoadActive)
+                if (s.SceneOnLoadActive)
                 {
-                    s.rendergui.Invoke();
+                    s.RenderGUI();
                     //MLoggerManager.Log("Scene manager render gui log test");
 
                     RenderGUIEmptyEventTrigger = false;

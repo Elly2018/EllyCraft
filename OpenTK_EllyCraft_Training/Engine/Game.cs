@@ -3,7 +3,6 @@ using OpenTK;
 using OpenTK.Input;
 using OpenTK.Graphics;
 using OpenTK.Graphics.ES30;
-
 using NanoVGDotNet.NanoVG;
 using EllyCraft.IO;
 using EllyCraft.GUI;
@@ -77,7 +76,6 @@ namespace EllyCraft
             MSceneManager.SceneGUIRender();
             NanoVg.EndFrame(CSpriteRender.ctx);
             
-
             /* Switch the frame pull update event */
             Context.SwapBuffers();
 

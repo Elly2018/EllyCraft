@@ -89,6 +89,7 @@
     <Compile Include="Engine\Entities\DataStruct\EGUIStyle.cs" />
     <Compile Include="Engine\Entities\GUIComponent\CButton.cs" />
     <Compile Include="Engine\Entities\GUIComponent\CGUIRaycast.cs" />
+    <Compile Include="Engine\Entities\GUIComponent\CHorizontalLayout.cs" />
     <Compile Include="Engine\Entities\GUIComponent\CImage.cs" />
     <Compile Include="Engine\Entities\GUIComponent\CMenuBar.cs" />
     <Compile Include="Engine\Entities\GUIComponent\CRectTransform.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Engine\Entities\DataStruct\ERect.cs" />
     <Compile Include="Engine\Entities\DataStruct\EShader.cs" />
     <Compile Include="Engine\Entities\GUIComponent\CTitleBar.cs" />
+    <Compile Include="Engine\Entities\GUIComponent\CVerticalLayout.cs" />
     <Compile Include="Engine\Entities\GUIComponent\CWindow.cs" />
     <Compile Include="Engine\Entities\Renderer\CSpriteRender.cs" />
     <Compile Include="Engine\Entities\Renderer\CMeshRender.cs" />
@@ -163,6 +165,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ScriptAsset\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

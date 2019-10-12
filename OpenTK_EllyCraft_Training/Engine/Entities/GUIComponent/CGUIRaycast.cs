@@ -4,10 +4,10 @@ namespace EllyCraft.GUI
 {
     class CGUIRaycast : ESceneComponent
     {
-        private float MouseRectSize = 5;
-        private CRectTransform cRect;
+        public const float MouseRectSize = 5;
 
         private bool Enter;
+        private CRectTransform cRect;
 
         public override void Awake()
         {
@@ -15,12 +15,20 @@ namespace EllyCraft.GUI
             cRect = sceneObject.GetComponent<CRectTransform>(true);
         }
 
+        public override void Update()
+        {
+            base.Update();
+            MouseEnter();
+            MouseExit();
+            MouseMove();
+        }
+
         public virtual bool MouseEnter()
         {
             ERect RenderArea = cRect.GetViewportRenderArea();
             if (!Enter)
             {
-                if (ERect.Checkcollide(RenderArea, GetMouseRect()))
+                if (ERect.CheckCollide(RenderArea, GetMouseRect()))
                 {
                     Enter = true;
                     return true;
@@ -33,7 +41,7 @@ namespace EllyCraft.GUI
             ERect RenderArea = cRect.GetViewportRenderArea();
             if (Enter)
             {
-                if (!ERect.Checkcollide(RenderArea, GetMouseRect()))
+                if (!ERect.CheckCollide(RenderArea, GetMouseRect()))
                 {
                     Enter = false;
                     return true;
@@ -54,16 +62,28 @@ namespace EllyCraft.GUI
         {
             if (!Enter) return false;
             return MInputManager.mouseState.IsButtonUp(button);
-
         }
 
-        private ERect GetMouseRect()
+        private static ERect GetMouseRect()
         {
             EIVertex2D pos = MInputManager.GetWindowMousePos();
             return new ERect(pos.x - MouseRectSize / 2,
                 pos.y - MouseRectSize / 2,
-                pos.x + MouseRectSize / 2,
-                pos.y + MouseRectSize / 2);
+                MouseRectSize,
+                MouseRectSize);
+        }
+
+        public static void RenderMouseRect()
+        {
+            NanoVGDotNet.NanoVG.NvgColor c = new NanoVGDotNet.NanoVG.NvgColor();
+            c.A = 1;
+            c.B = 1;
+            c.G = 0;
+            c.R = 0;
+            NanoVGDotNet.NanoVG.NanoVg.BeginPath(CSpriteRender.ctx);
+            NanoVGDotNet.NanoVG.NanoVg.FillColor(CSpriteRender.ctx, c);
+            NanoVGDotNet.NanoVG.NanoVg.Rect(CSpriteRender.ctx, (float)GetMouseRect().x, (float)GetMouseRect().y, (float)GetMouseRect().width, (float)GetMouseRect().height);
+            NanoVGDotNet.NanoVG.NanoVg.Fill(CSpriteRender.ctx);
         }
     }
 }

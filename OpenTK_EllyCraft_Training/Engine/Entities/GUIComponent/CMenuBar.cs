@@ -4,28 +4,23 @@ namespace EllyCraft.GUI
 {
     class CMenuBar : CSpriteRender
     {
-        public const float Height = 50;
+        public const float MinHeight = 30;
 
-        private CRectTransform rect;
-
-        public override void Awake()
+        public override void Update()
         {
-            base.Awake();
-            rect = sceneObject.GetComponent<CRectTransform>(true);
+            base.Update();
+            renderRect.anchor.pivotType = EAnchor.PivotType.TopLeft;
+            ERect local = renderRect.anchor.rect;
+            renderRect.anchor.rect = new ERect(0, 0, MInputManager.GetWindowSize().x, local.height < MinHeight ? MinHeight : local.height);
         }
 
         public override void RenderGUI()
         {
             base.RenderGUI();
+            ERect local = renderRect.anchor.rect;
+
             /* Base background render */
-            NanoVg.BeginPath(CSpriteRender.ctx);
-            NanoVg.Rect(CSpriteRender.ctx,
-                (float)0f,
-                (float)0f,
-                (float)MInputManager.GetWindowSize().x,
-                (float)Height);
-            NanoVg.FillColor(CSpriteRender.ctx, EColorToNvgColor(style.BackgroundColor));
-            NanoVg.Fill(CSpriteRender.ctx);
+            FillColorCurrentRect(style.BackgroundColor);
         }
     }
 }

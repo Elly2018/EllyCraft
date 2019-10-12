@@ -8,9 +8,9 @@ namespace EllyCraft
     class ESceneObject : EObject, EllyBehavior
     {
         public ESceneObject Parent;
+        public List<ESceneObject> child = new List<ESceneObject>();
 
         private List<ESceneComponent> components = new List<ESceneComponent>();
-        private List<ESceneObject> child;
 
         public int ChildCount
         {
@@ -82,7 +82,6 @@ namespace EllyCraft
             T t = new T();
             components.Add(t);
             t.sceneObject = this;
-            GetCurrentScene().BindBehavior(this);
             return t;
         }
         /// <summary>
