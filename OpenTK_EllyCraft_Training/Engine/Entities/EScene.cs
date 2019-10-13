@@ -181,11 +181,11 @@ namespace EllyCraft
                 parent.child.Add(obj);
             }
 
-            MLoggerManager.Log("SceneObject: " + obj.name);
-            MLoggerManager.Log("\tTo scene: " + name);
-            if (parent == null) MLoggerManager.Log("\tParent: null");
-            else MLoggerManager.Log("\tParent: " + parent.name);
-            MLoggerManager.Log("");
+            ELogger.Log("SceneObject: " + obj.name);
+            ELogger.Log("\tTo scene: " + name);
+            if (parent == null) ELogger.Log("\tParent: null");
+            else ELogger.Log("\tParent: " + parent.name);
+            ELogger.Log("");
 
             return obj;
         }

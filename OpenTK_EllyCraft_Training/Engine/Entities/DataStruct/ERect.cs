@@ -63,7 +63,7 @@ namespace EllyCraft
         public static bool Check2DPointCollide(ERect v1, EVertex2D point)
         {
             EVertex2D[] points = GetRectCornerPoint(v1);
-            double area = v1.width * v1.height * 1.7;
+            double area = v1.width * v1.height * 1.1;
             double[] Trianglearea = new double[]
             {
                 GetTriangleArea(points[0], points[1], point),

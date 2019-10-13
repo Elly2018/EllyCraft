@@ -60,13 +60,14 @@ namespace EllyCraft.GUI
         {
             ERect RenderArea = renderRect.GetViewportRenderArea();
 
-            if (RenderArea == null) MLoggerManager.Log("Render area is null");
+            if (RenderArea == null) ELogger.Log("Render area is null");
 
             if (CSpriteRender.SystemFont == -1)
                 NanoVg.CreateFont(CSpriteRender.ctx, "Roboto-Bold", File.ReadAllBytes(Path.Combine(EPath.GetResourcePath(), "Roboto-Bold.ttf")));
             else
                 NanoVg.FontFace(CSpriteRender.ctx, "Roboto-Bold");
             NanoVg.TextAlign(CSpriteRender.ctx, NvgAlign.Left);
+            NanoVg.FillColor(CSpriteRender.ctx, EColorToNvgColor(color));
             NanoVg.FontSize(CSpriteRender.ctx, Size);
             NanoVg.FontBlur(CSpriteRender.ctx, 0.5f);
             NanoVg.Text(CSpriteRender.ctx, (float)RenderArea.x, (float)RenderArea.y, _string);

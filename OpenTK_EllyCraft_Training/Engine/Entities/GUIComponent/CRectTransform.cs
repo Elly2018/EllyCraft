@@ -67,7 +67,7 @@
                     return rect;
             }
 
-            MLoggerManager.LogError("Failed to transfer 2D coordinate system : Pivot Adjustment");
+            ELogger.LogError("Failed to transfer 2D coordinate system : Pivot Adjustment");
             return rect;
         }
 

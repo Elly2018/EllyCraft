@@ -37,8 +37,8 @@ namespace EllyCraft
         protected override void OnLoad(EventArgs e)
         {
             /* Register system */
-            MLoggerManager.AddLogger(new SystemLogger(1));
-            MLoggerManager.Log("Logger initialized");
+            ELogger.AddLogger(new SystemLogger(1));
+            ELogger.Log("Logger initialized");
 
             /* Initialize all io */
             InitializeIO();
@@ -48,7 +48,7 @@ namespace EllyCraft
             InitializeManager();
 
             /* Display the window and grpahics api information */
-            MLoggerManager.Log("Game initialized");
+            ELogger.Log("Game initialized");
 
             /* Editor mode scene ready, and import editor setting */
             MEditorMode.Initialize();
@@ -100,11 +100,11 @@ namespace EllyCraft
         {
             EditModeReader.Initialize("EditMode.json");
             EditModeWriter.Initialize("EditMode.json");
-            MLoggerManager.Log("EditMode io initialized");
+            ELogger.Log("EditMode io initialized");
 
             HotkeyReader.Initialize("Hotkey.json");
             HotkeyWriter.Initialize("Hotkey.json");
-            MLoggerManager.Log("Hotkey io initialized");
+            ELogger.Log("Hotkey io initialized");
         }
 
         private static void InitializeManager()

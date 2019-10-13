@@ -47,7 +47,7 @@ namespace EllyCraft
                     return LoaderObjToEMesh(scene);
                 }
             }
-            MLoggerManager.LogError(MLoggerManager.LoggerMessage.CannotGetResource(FileName, EPath.GetResourcePath()));
+            ELogger.LogError(ELogger.LoggerMessage.CannotGetResource(FileName, EPath.GetResourcePath()));
 
             return null;
         }

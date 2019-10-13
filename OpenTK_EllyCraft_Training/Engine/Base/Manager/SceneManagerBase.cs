@@ -10,7 +10,7 @@ namespace EllyCraft.Base
         {
             if(index >= LoadScenes.Length || index < 0)
             {
-                MLoggerManager.LogWarning(MLoggerManager.LoggerMessage.OutOfRange(index));
+                ELogger.LogWarning(ELogger.LoggerMessage.OutOfRange(index));
                 return;
             }
 
@@ -30,7 +30,7 @@ namespace EllyCraft.Base
 
             if(index == -1)
             {
-                MLoggerManager.LogWarning(MLoggerManager.LoggerMessage.ObjectDoesNotExist<EScene>(name));
+                ELogger.LogWarning(ELogger.LoggerMessage.ObjectDoesNotExist<EScene>(name));
                 return;
             }
 
@@ -59,17 +59,36 @@ namespace EllyCraft.Base
             scenes.Add(scene);
 
             LoadScenes = scenes.ToArray();
-            MLoggerManager.Log("Scene loading: " + scene.name);
-            MLoggerManager.Log("");
+            ELogger.Log("Scene loading: " + scene.name);
+            ELogger.Log("");
         }
 
         public static void UnloadScene(int index)
         {
-
+            m_UnloadScene(index);
         }
         public static void UnloadScene(string name)
         {
-
+            for(int i = 0; i < LoadScenes.Length; i++)
+            {
+                if (LoadScenes[i].name == name) {
+                    m_UnloadScene(i);
+                    return;
+                } 
+            }
+            ELogger.LogWarning("Cannot find scene by name: " + name);
+        }
+        private static void m_UnloadScene(int index)
+        {
+            if (index >= LoadScenes.Length || index < 0)
+            {
+                ELogger.LogWarning(ELogger.LoggerMessage.OutOfRange(index));
+                return;
+            }
+            List<EScene> local = new List<EScene>(LoadScenes);
+            local[index].Destroy();
+            local.RemoveAt(index);
+            LoadScenes = local.ToArray();
         }
     }
 }

@@ -161,13 +161,13 @@ namespace EllyCraft
         {
             if (index > child.Count || index < 0)
             {
-                MLoggerManager.LogError(MLoggerManager.LoggerMessage.OutOfRange(index));
+                ELogger.LogError(ELogger.LoggerMessage.OutOfRange(index));
                 return;
             }
 
             if (!child.Contains(target))
             {
-                MLoggerManager.LogError("The object child does not contain argument target ");
+                ELogger.LogError("The object child does not contain argument target ");
                 return;
             }
 
@@ -198,7 +198,7 @@ namespace EllyCraft
         {
             if(index > child.Count || index < 0)
             {
-                MLoggerManager.LogError(MLoggerManager.LoggerMessage.OutOfRange(index));
+                ELogger.LogError(ELogger.LoggerMessage.OutOfRange(index));
                 return null;
             }
             return child[index];

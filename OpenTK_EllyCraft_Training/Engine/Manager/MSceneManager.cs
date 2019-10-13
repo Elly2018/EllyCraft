@@ -47,7 +47,7 @@ namespace EllyCraft
             }
 
             if(!Invoked && !UpdateEmptyEventTrigger)
-                MLoggerManager.LogWarning("Scene Manager Render gui does not have any event to invoke");
+                ELogger.LogWarning("Scene Manager Render gui does not have any event to invoke");
             UpdateEmptyEventTrigger = true;
         }
         /// <summary>
@@ -69,7 +69,7 @@ namespace EllyCraft
             }
 
             if (!Invoked && !RenderEmptyEventTrigger)
-                MLoggerManager.LogWarning("Scene Manager Render does not have any event to invoke");
+                ELogger.LogWarning("Scene Manager Render does not have any event to invoke");
             RenderEmptyEventTrigger = true;
         }
         /// <summary>
@@ -91,7 +91,7 @@ namespace EllyCraft
             }
 
             if (!Invoked && !RenderGUIEmptyEventTrigger)
-                MLoggerManager.LogWarning("Scene Manager Render gui does not have any event to invoke");
+                ELogger.LogWarning("Scene Manager Render gui does not have any event to invoke");
             RenderGUIEmptyEventTrigger = true;
         }
 

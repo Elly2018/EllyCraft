@@ -8,10 +8,21 @@ namespace EllyCraft.GUI
     {
         public string text = "";
         public EColor color = new EColor();
+        public bool FitParentRect = true;
 
         public override void Awake()
         {
             base.Awake();
+        }
+
+        public override void Update()
+        {
+            base.Update();
+            if (FitParentRect)
+            {
+                renderRect.anchor.rect = new ERect(sceneObject.Parent.GetComponent<CRectTransform>(true).anchor.rect);
+                ELogger.Log(renderRect.anchor.rect);
+            }
         }
 
         public override void RenderGUI()

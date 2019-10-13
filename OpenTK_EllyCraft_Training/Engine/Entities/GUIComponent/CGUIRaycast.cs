@@ -4,7 +4,7 @@ namespace EllyCraft.GUI
 {
     class CGUIRaycast : ESceneComponent
     {
-        public const float MouseRectSize = 5;
+        public const float MouseRectSize = 0;
 
         private bool Enter;
         private CRectTransform cRect;
@@ -68,7 +68,7 @@ namespace EllyCraft.GUI
         {
             EIVertex2D pos = MInputManager.GetWindowMousePos();
             return new ERect(pos.x - MouseRectSize / 2,
-                pos.y - MouseRectSize / 2,
+                pos.y - MouseRectSize / 2 - 25,
                 MouseRectSize,
                 MouseRectSize);
         }

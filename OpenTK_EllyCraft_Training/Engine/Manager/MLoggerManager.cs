@@ -49,7 +49,7 @@ namespace EllyCraft
     /// It will loop all the logger register before, and trigger all interface.
     /// User can custom their own logger system.
     /// </summary>
-    sealed class MLoggerManager
+    sealed class ELogger
     {
         private static List<Logger> loggers = new List<Logger>();
         private static int level = 1;

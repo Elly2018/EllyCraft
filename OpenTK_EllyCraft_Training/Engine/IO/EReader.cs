@@ -21,7 +21,7 @@ namespace EllyCraft.IO
             T result = JsonConvert.DeserializeObject<T>(File.ReadAllText(path));
             if (result == null)
             {
-                MLoggerManager.LogError(MLoggerManager.LoggerMessage.LoadingFailed(path));
+                ELogger.LogError(ELogger.LoggerMessage.LoadingFailed(path));
             }
 
             return result;
